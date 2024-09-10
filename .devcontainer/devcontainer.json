@@ -1,0 +1,30 @@
+{
+    "name": "Containerization playground",
+    "build": {
+      "dockerfile": "../Dockerfile",
+      "context": ".."
+    },
+    "containerEnv": {
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-python.python",
+          "GitHub.copilot",
+          "ms-python.pylance",
+          "ms-toolsai.jupyter"
+        ],
+        "settings": { 
+          "terminal.integrated.shell.linux": "/bin/bash"
+        }  
+      }
+    },
+    "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "postCreateCommand": "echo 'Containerization playground created.'",
+    "postStartCommand": "echo 'Containerization playground started.'"
+    }
+
+  
