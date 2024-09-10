@@ -7,7 +7,7 @@ This is a place to tinker with concepts related to [containerization](https://ww
 ### build container images
 
 ```sh
-docker build marktmilligan/go:1.23.0 .
+docker build -t marktmilligan/go:1.23.0 .
 ```
 
 marktmilligan = user or organization
@@ -34,6 +34,51 @@ docker run -it marktmilligan/go:1.23.0
 > type `exit` to end the shell and stop the container and return to the host where you started the container
 
 `docker run -d marktmilligan/go:1.23.0` starts the container in detached mode with no shell
+
+### list the process status of running containers
+
+```sh
+docker ps
+```
+
+> `docker ps -a` shows all containers, running and stopped
+> `docker ps --filter "name=g*"` filters for containers starting with `g`
+
+## host mode
+
+By default, containers, including dev containers, create a bridge network in the container that prevents access to the host machine's network. This is for security reasons.
+
+There are use cases, like accessing a PostgreSQL database, a web server, or files on the host machine.
+
+### dev container modification
+
+```json
+    "runArgs": ["--net=host"]
+```
+
+### host.docker.internal
+
+`host.docker.internal` is a special hostname that Docker provides to allow containers to access the host machine's network services. It is a DNS name that resolves to the host machine's IP address, specifically the IP address of the host machine's Docker bridge network interface and different from the physical network interface. 
+
+#### psql into PostgreSQL running on the host
+
+```sh
+psql -h host.docker.internal -p 5432 -U postgres -d postgres
+```
+> Using the host's IP will not resolve or work
+
+### alternative: get IP address of host
+
+From the most machine, e.g., a Mac, run:
+
+```sh
+ipconfig getifaddr en0
+```
+
+This is the IP address of the host machine's physical network interface.
+
+> with this IP, you can curl web servers on the host machine
+
 
 ## Docker in Docker
 

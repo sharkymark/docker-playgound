@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # get utilities in the container
-RUN apt-get update && apt-get install -y curl procps ssh git net-tools htop build-essential libsqlite3-dev
+RUN apt-get update && apt-get install -y curl procps ssh git net-tools htop build-essential libsqlite3-dev postgresql-client iputils-ping
 
 # Install pip dependencies
 RUN pip install --no-cache-dir --upgrade pip && pip install websockets argparse pysqlite3
