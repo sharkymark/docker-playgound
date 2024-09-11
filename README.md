@@ -126,7 +126,7 @@ You can use various types of volume mounts to persist or share files between the
 
 ### bind mounts
 * map a host machine's directory to a container directory
-* e.g., in a dev container, there is a default bind mount between the host directory used to start a 
+* e.g., in a dev container, there is a default bind mount between the host directory used to start a dev container and a `/workspaces/<project directory>` directory
 
 #### dev container 
 
