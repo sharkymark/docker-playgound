@@ -175,8 +175,61 @@ docker run -d --name myapp \
 ```
 
 ### anonymous volumes
+* temporary storage
+* automatically removed when the container is removed (stopped or deleted)
+
+```sh
+docker run -d --name myapp \
+  -v /var/data \
+  myimage:latest
+```
 
 ### read-only volumes
+* similar to bind volumes but read-only
+* good for things like secrets, credentials from the host that you don't want changed
+
+```sh
+docker run -d --name myapp \
+  -v /path/to/volume:/container/path:ro \
+  myimage:latest
+```
+
+## Information about the docker system
+
+### df
+* displays disk usage statistics
+```sh
+docker system df
+```
+
+```sh
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          81        7         34.35GB   29.84GB (86%)
+Containers      8         2         1.375GB   988.6MB (71%)
+Local Volumes   8         3         13.34GB   8.532GB (63%)
+Build Cache     283       0         71.86kB   71.86kB
+```
+
+### info
+
+* displays detailed info about the docker system
+```sh
+docker system info
+```
+
+### events
+
+* displays real-time events from the docker system
+```sh
+docker system events
+```
+
+### prune
+* remove unused data from the docker system
+* adjust time as needed
+```sh
+docker system events -5m
+```
 
 ## Docker in Docker
 
