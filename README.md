@@ -10,10 +10,13 @@ This is a place to tinker with concepts related to [containerization](https://ww
 docker build -t marktmilligan/go:1.23.0 .
 ```
 
-marktmilligan = user or organization
-go = container image name
-1.23.0 = tag
-. = use the [Dockerfile](https://github.com/sharkymark/dockerfiles/blob/main/go/Dockerfile) in the current directory the command is run from
+`marktmilligan` = user or organization
+
+`go` = container image name
+
+`1.23.0` = tag
+
+`.` = use the [Dockerfile](https://github.com/sharkymark/dockerfiles/blob/main/go/Dockerfile) in the current directory the command is run from
 
 ### push container images to a container registry, like dockerhub
 
@@ -115,6 +118,65 @@ docker volume prune
 removes:
 1. unused volumes
 
+## Volume mounts
+
+Containers are ephemeral meaning that when they are stopped, any data or created files, e.g., database, logs, are deleted when the container is destroyed.
+
+You can use various types of volume mounts to persist or share files between the host machine running the docker daemon and the container.
+
+### bind mounts
+* map a host machine's directory to a container directory
+* e.g., in a dev container, there is a default bind mount between the host directory used to start a 
+
+#### dev container 
+
+`/home/user/myproject` and `/workspaces/myproject`
+
+#### docker run
+
+```sh
+docker run -d --name myapp \
+  -v /home/user/myproject:$HOME/myproject \
+  myimage:latest
+```
+
+#### docker-compose
+
+```yaml
+    "volumes":
+    -  /var/run/docker.sock:/var/run/docker.sock
+```
+
+### named volumes
+* created and managed by the container runtime like docker, colima, podman, containerd
+* by default, named volumes are in `/var/lib/docker/volumes/<volume name>` if using docker as the container runtime, this directory structure is within the colima VM, requiring you to `colima ssh` first.
+
+#### docker run
+
+```sh
+docker run -d --name myapp \
+  -v myvol:/var/data \
+  myimage:latest
+```
+
+#### docker-compose
+
+```yaml
+    "volumes":
+    - myvol:/var/data
+```
+
+#### dev container
+
+```yaml
+    "mounts": [
+      "source=myvol,target=/var/data"
+    ]
+```
+
+### anonymous volumes
+
+### read-only volumes
 
 ## Docker in Docker
 

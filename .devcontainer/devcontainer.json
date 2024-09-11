@@ -24,6 +24,9 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
     },
+    "mounts": [
+      "type=volume,source=myvol,target=/var/data"
+    ],
     "postCreateCommand": "echo 'Containerization playground created.'",
     "postStartCommand": "echo 'Containerization playground started.'"
     }
