@@ -79,6 +79,42 @@ This is the IP address of the host machine's physical network interface.
 
 > with this IP, you can curl web servers on the host machine
 
+## Cleaning up images and containers
+
+```sh
+docker system prune
+```
+removes:
+1. stopped containers
+1. unused containers
+1. dangling images (untagged)
+1. unused volumes
+
+```sh
+docker container prune
+```
+removes:
+1. stopped containers
+
+```sh
+docker image prune
+```
+removes:
+1. dangling images (untagged)
+1. unused images
+
+```sh
+docker network prune
+```
+removes:
+1. unused networks
+
+```sh
+docker volume prune
+```
+removes:
+1. unused volumes
+
 
 ## Docker in Docker
 
