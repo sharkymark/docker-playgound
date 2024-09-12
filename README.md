@@ -307,12 +307,31 @@ docker run mycontainer "Goodbye, World!"
 ```
 prints `Goodbye, World!` since the CMD was overwritten
 
+```sh
+ENTRYPOINT ["sh", "-c"]
+CMD ["echo 'initializing database'; init.sh"]
+```
+starts a shell, prints a statement to the logs, and runs the init.sh script
+
+```sh
+docker inspect --format='{{json .Config.Entrypoint}}' nginx
+```
+shows the entrypoint defined in an image like `["/docker-entrypoint.sh"]`
+
+```sh
+docker run -it --entrypoint sh nginx
+cat /docker-entrypoint.sh
+```
+override the entrypoint and start an interactive shell then inspect the script
+
 
 ## Docker in Docker
 
 with [dev container](https://github.com/devcontainers/features/tree/main/src/docker-in-docker)
 
 ## Resources
+
+[Colima FAQ](https://github.com/abiosoft/colima/blob/main/docs/FAQ.md)
 
 [Docker CLI](https://docs.docker.com/reference/cli/docker/)
 
