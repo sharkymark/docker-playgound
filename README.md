@@ -270,6 +270,44 @@ RUN curl -L "https://dl.google.com/go/go1.23.0.linux-amd64.tar.gz" | tar -C /usr
 COPY ["guacamole.properties", "/etc/guacamole/guacamole.properties"]
 ```
 
+#### expose ports
+* `EXPOSE` ports that container's application(s) listen on.
+* Is more of a documentation feature only
+* Does not actually publish, or bind, the ports to the host machine; that is accomplished when starting the container with `-p`
+
+```sh
+EXPOSE 8000
+```
+
+#### environment variables
+* `ENV` sets environment variables in the container
+* e.g., http proxies, logging mode, working directory, language versions, path
+
+```sh
+ENV HTTP_PROXY=http://proxy.example.com:8080
+ENV HTTPS_PROXY=http://proxy.example.com:8080
+```
+
+#### entry command
+* `CMD` specifies the default command to run when the container starts; can be overwritten in `docker run`
+* `ENTRYPOINT` is not meant to be overridden like `CMD` and can use `CMD` as parameters to `ENTRYPOINT`; is meant to be the executable run when the container starts.
+
+```sh
+ENTRYPOINT ["echo"]
+CMD ["Hello, World!]
+```
+
+```sh
+docker run mycontainer
+```
+prints `Hello, World!`
+
+```sh
+docker run mycontainer "Goodbye, World!"
+```
+prints `Goodbye, World!` since the CMD was overwritten
+
+
 ## Docker in Docker
 
 with [dev container](https://github.com/devcontainers/features/tree/main/src/docker-in-docker)
