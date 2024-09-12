@@ -228,7 +228,46 @@ docker system events
 * remove unused data from the docker system
 * adjust time as needed
 ```sh
-docker system events -5m
+docker system events --since 5m
+```
+
+## Dockerfile
+
+A Dockerfile is a text file with instructions that the container runtime such as Docker uses to build an image with 'docker build'. These images can then create containers to run development or production workloads.
+
+### Key components
+
+#### base image
+* specifies the base container image to use from which the new image is built from
+
+```sh
+FROM ubuntu:latest
+```
+
+#### user
+* specify the Linux user that subsequent commands will be run by. `root` is needed often for installations
+
+```sh
+USER root
+
+# install some softawre then switch back to the container user
+
+USER jupyter
+```
+
+#### run commands (adding software)
+* the `RUN` instruction executes commands in the image during the `docker build` process such as installing software.
+
+```sh
+# install go
+RUN curl -L "https://dl.google.com/go/go1.23.0.linux-amd64.tar.gz" | tar -C /usr/local -xzvf -
+```
+
+#### copy files
+* `COPY` or `ADD` files from the local host machine to the image
+
+```sh
+COPY ["guacamole.properties", "/etc/guacamole/guacamole.properties"]
 ```
 
 ## Docker in Docker
