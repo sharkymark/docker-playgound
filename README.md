@@ -343,6 +343,8 @@ with [dev container](https://github.com/devcontainers/features/tree/main/src/doc
 
 [Docker\'s container registry called dockerhub](https://hub.docker.com/)
 
+[NGINX image on dockerhub](https://hub.docker.com/_/nginx/tags?page_size=&ordering=&name=latest)
+
 [dev container features](https://github.com/devcontainers/features/tree/main/src
 )
 ## License
